@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import api from "../services/api";
 import SongCard from "../components/SongCard";
+import { usePlayer } from "../context/PlayerContext";
 
 export default function Home() {
-  const [songs, setSongs] = useState([]);
+ const { songs, setSongs } = usePlayer();
 
   useEffect(() => {
     const fetchSongs = async () => {
@@ -17,6 +18,7 @@ export default function Home() {
 
     fetchSongs();
   }, []);
+
 
   return (
     <div className="space-y-12">
