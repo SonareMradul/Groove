@@ -1,5 +1,4 @@
 import { createContext, useContext, useRef, useState } from "react";
-
 const PlayerContext = createContext();
 
 export const PlayerProvider = ({ children }) => {
@@ -27,17 +26,28 @@ export const PlayerProvider = ({ children }) => {
     audioRef.current.pause();
     setIsPlaying(false);
   };
+const togglePlayPause = () => {
+  if (!currentSong) return;
 
+  if (isPlaying) {
+    audioRef.current.pause();
+    setIsPlaying(false);
+  } else {
+    audioRef.current.play();
+    setIsPlaying(true);
+  }
+};
   return (
     <PlayerContext.Provider
-      value={{
-        currentSong,
-        isPlaying,
-        playSong,
-        pauseSong,
-        audioRef,
-      }}
-    >
+  value={{
+    currentSong,
+    isPlaying,
+    playSong,
+    pauseSong,
+    togglePlayPause,
+    audioRef,
+  }}
+>
       {children}
     </PlayerContext.Provider>
   );

@@ -1,25 +1,25 @@
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import MusicPlayer from "../components/MusicPlayer";
+import { Outlet } from "react-router-dom";
 
-export default function MainLayout({ children }) {
+export default function MainLayout() {
   return (
-    <div className="h-screen bg-[#090909] text-white flex overflow-hidden">
+    <div className="h-screen flex bg-black text-white">
 
       <Sidebar />
 
-      <div className="flex flex-col flex-1">
+      <div className="flex-1 flex flex-col">
 
         <Navbar />
 
-        <main className="flex-1 overflow-y-auto px-12 py-10">
-          {children}
+        <main className="flex-1 overflow-y-auto">
+          <Outlet />
         </main>
 
         <MusicPlayer />
 
       </div>
-
     </div>
   );
 }
