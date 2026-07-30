@@ -9,7 +9,7 @@ import {
 } from "react";
 
 
-const PlayerContext = createContext();
+export const PlayerContext = createContext();
 
 export const PlayerProvider = ({ children }) => {
   const audioRef = useRef(new Audio());
