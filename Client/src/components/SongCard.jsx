@@ -3,7 +3,8 @@ import { usePlayer } from "../context/PlayerContext";
 
 export default function SongCard({ song }) {
   const cover = `http://localhost:5000/uploads/covers/${song.coverImage}`;
-  const { playSong } = usePlayer();
+  const { playSong, addToQueue } = usePlayer();
+  
 
   return (
     <div
@@ -46,6 +47,24 @@ export default function SongCard({ song }) {
         <p className="text-zinc-500 mt-1">
           {song.artist}
         </p>
+        <button
+  onClick={(e) => {
+    e.stopPropagation();
+    addToQueue(song);
+  }}
+  className="
+    mt-2
+    w-full
+    rounded-xl
+    border
+    border-zinc-700
+    py-3
+    hover:bg-zinc-800
+    transition
+  "
+>
+  Add to Queue
+</button>
 
        <button
     onClick={(e) => {

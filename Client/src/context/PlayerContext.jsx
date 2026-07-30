@@ -23,6 +23,7 @@ export const PlayerProvider = ({ children }) => {
   const [duration, setDuration] = useState(0);
   const [isShuffle, setIsShuffle] = useState(false);
   const [repeatMode, setRepeatMode] = useState("off");
+  const [queue, setQueue] = useState([]);
 
 
   // Play a song
@@ -40,6 +41,11 @@ export const PlayerProvider = ({ children }) => {
     setCurrentSong(song);
     setIsPlaying(true);
   }, []);
+  const addToQueue = useCallback((song) => {
+  if (!song) return;
+
+  setQueue((prev) => [...prev, song]);
+}, []);
   // Pause
   const pauseSong = useCallback(() => {
       audioRef.current.pause();
@@ -86,6 +92,12 @@ const toggleMute = () => {
   // Next
   const playNext = useCallback(() => {
   if (!currentSong || songs.length === 0) return;
+  // Play queued songs first
+if (queue.length > 0) {
+  playSong(queue[0]);
+  setQueue((prev) => prev.slice(1));
+  return;
+}
 
   // Shuffle mode
   if (isShuffle) {
@@ -125,7 +137,8 @@ if (isLastSong) {
 
 playSong(songs[index + 1]);
 }, [currentSong, songs, playSong, isShuffle,repeatMode,
-pauseSong]);
+pauseSong,queue,
+setQueue,]);
 
   // Previous
   const playPrevious = useCallback(() => {
@@ -192,6 +205,9 @@ pauseSong]);
         volume,changeVolume,toggleMute,isShuffle,
 setIsShuffle,repeatMode,
 setRepeatMode,
+queue,
+setQueue,
+addToQueue,
       }}
     >
       {children}

@@ -17,7 +17,7 @@ export default function Home() {
     };
 
     fetchSongs();
-  }, []);
+  }, [setSongs]);
 
 
   return (

@@ -8,6 +8,7 @@ const {
   uploadSong,
   streamSong,
   getAllSongs,
+   searchSongs,
 } = require("../controllers/songController");
 
 // Upload Song
@@ -26,5 +27,6 @@ router.get("/", getAllSongs);
 
 // Stream Song
 router.get("/stream/:filename", streamSong);
+router.get("/search", searchSongs);
 
 module.exports = router;

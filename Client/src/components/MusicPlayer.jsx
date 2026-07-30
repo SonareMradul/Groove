@@ -165,20 +165,7 @@ export default function MusicPlayer() {
 
 </div>
 
-<div onClick={toggleRepeat} className="cursor-pointer">
-  {repeatMode === "one" ? (
-    <Repeat1 className="text-green-500" size={18} />
-  ) : (
-    <Repeat
-      size={18}
-      className={
-        repeatMode === "all"
-          ? "text-green-500"
-          : "text-zinc-400 hover:text-white"
-      }
-    />
-  )}
-</div>
+
       
 
     </footer>

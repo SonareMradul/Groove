@@ -60,3 +60,28 @@ exports.getAllSongs = async (req, res) => {
     });
   }
 };
+exports.searchSongs = async (req, res) => {
+  try {
+    const { q } = req.query;
+
+    // Empty search
+    if (!q || q.trim() === "") {
+      return res.status(200).json([]);
+    }
+
+    const songs = await Song.find({
+      $or: [
+        { title: { $regex: q, $options: "i" } },
+        { artist: { $regex: q, $options: "i" } },
+        { album: { $regex: q, $options: "i" } },
+      ],
+    });
+
+    res.status(200).json(songs);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Error searching songs",
+    });
+  }
+};
